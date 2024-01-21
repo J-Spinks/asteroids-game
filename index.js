@@ -63,6 +63,9 @@ const keys = {
   }
 }
 
+const SPEED = 3
+const DECELERATION = 0.93
+
 function animate() {
   window.requestAnimationFrame(animate)
   context.fillStyle = 'black'
@@ -70,11 +73,17 @@ function animate() {
   // console.log(animate)
   player.update()
 
-  player.velocity.x = 0
-  if (keys.w.pressed) player.velocity.x = 1
 
-  if (keys.d.pressed) player.rotation += 0.01
-    else if (keys.a.pressed) player.rotation -= 0.01
+  if (keys.w.pressed) {
+    player.velocity.x = Math.cos(player.rotation) * SPEED
+    player.velocity.y = Math.sin(player.rotation) * SPEED
+  } else if (!keys.w.pressed) {
+    player.velocity.x *= DECELERATION
+    player.velocity.y *= DECELERATION
+  }
+
+  if (keys.d.pressed) player.rotation += 0.04
+    else if (keys.a.pressed) player.rotation -= 0.04
 
 }
 
@@ -83,7 +92,6 @@ animate()
 window.addEventListener('keydown', (event) => {
   switch (event.code) {
     case 'KeyW':
-      console.log("w was pressed")
       keys.w.pressed = true
       break;
     case 'KeyA':
