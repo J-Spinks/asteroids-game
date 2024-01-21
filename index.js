@@ -18,9 +18,12 @@ class Player {
   drawPlayer() {
     // check player model is centered:
     context.save()
-    // context.arc(this.position.x, this.position.y, 5, 0, Math.PI * 2, false)
-    // context.fillStyle = "orange"
-    // context.fill()
+    context.translate(this.position.x, this.position.y)
+    context.rotate(this.rotation)
+    context.translate(-this.position.x, -this.position.y)
+    context.arc(this.position.x, this.position.y, 5, 0, Math.PI * 2, false)
+    context.fillStyle = "orange"
+    context.fill()
     context.beginPath()
     context.moveTo(this.position.x + 30, this.position.y)
     context.lineTo(this.position.x - 10, this.position.y - 10)
@@ -71,6 +74,7 @@ function animate() {
   if (keys.w.pressed) player.velocity.x = 1
 
   if (keys.d.pressed) player.rotation += 0.01
+    else if (keys.a.pressed) player.rotation -= 0.01
 
 }
 
