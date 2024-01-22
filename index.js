@@ -47,7 +47,7 @@ class Projectile {
   constructor({ position, velocity }) {
     this.position = position
     this.velocity = velocity
-    this.radius = 5
+    this.radius = 2
   }
 
   draw() {
@@ -133,14 +133,15 @@ window.addEventListener('keydown', (event) => {
       projectiles.push(new Projectile({
           position: {
             x: player.position.x + Math.cos(player.rotation) * 30,
-            y: player.position.y + Math.sin(player.rotation) * 30
+            y: player.position.y + Math.sin(player.rotation) * 30,
           },
           velocity: {
-            x: 1,
-            y: 0
+            x: Math.cos(player.rotation) * 5,
+            y: Math.sin(player.rotation) * 5
           }
         })
       )
+      break;
   }
 })
 
