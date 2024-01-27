@@ -100,7 +100,22 @@ function animate() {
   for (let i = projectiles.length - 1; i >= 0; i--) {
     const projectile = projectiles[i]
     projectile.update()
+
+    // removes projectile from array when off screen
+    if (
+      projectile.position.x + projectile.radius < 0 ||
+      projectile.position.x - projectile.radius > canvas.width ||
+      projectile.position.y - projectile.radius > canvas.height ||
+      projectile.position.y + projectile.radius < 0
+      ){
+
+      projectiles.splice(i, 1)
+
+    }
+
+
   }
+
 
 
   if (keys.w.pressed) {
@@ -117,6 +132,8 @@ function animate() {
 }
 
 animate()
+
+
 
 window.addEventListener('keydown', (event) => {
   switch (event.code) {
@@ -141,6 +158,7 @@ window.addEventListener('keydown', (event) => {
           }
         })
       )
+      // console.log(projectiles)
       break;
   }
 })
